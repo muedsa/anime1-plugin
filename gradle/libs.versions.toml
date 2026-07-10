@@ -4,13 +4,19 @@ kotlin = "2.4.0"
 tvboxApi = "12.1.0"
 junit4 = "4.13.2"
 kotlinxCoroutinesTest = "1.11.0"
+androidxTest = "1.7.0"
+robolectric = "4.16.1"
 smaliDexlib2 = "3.0.9"
+opencc4j = "1.14.0"
 
 [libraries]
 tvbox-api = { module = "com.muedsa.tvbox:api", version.ref = "tvboxApi" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 smali-dexlib2 = { module = "com.android.tools.smali:smali-dexlib2", version.ref = "smaliDexlib2" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+opencc4j = { module = "com.github.houbb:opencc4j", version.ref = "opencc4j" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

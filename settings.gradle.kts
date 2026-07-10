@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TvBoxDemoPlugin"
+rootProject.name = "anime1-plugin"
 include(":app")
 includeBuild("TvBoxPlugin")
