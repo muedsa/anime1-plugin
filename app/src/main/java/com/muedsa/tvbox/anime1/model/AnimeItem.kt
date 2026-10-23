@@ -23,6 +23,7 @@ data class AnimeItem(
     val year: String = "",      // 索引3: 年份
     val season: String = "",    // 索引4: 季节
     val extra: String = "",     // 索引5: 字幕组
+    val rawTitle: String = "",  // 索引6: 原标题
 )
 
 object AnimeItemSerializer : KSerializer<AnimeItem> {
@@ -40,7 +41,8 @@ object AnimeItemSerializer : KSerializer<AnimeItem> {
                 JsonPrimitive(value.status),
                 JsonPrimitive(value.year),
                 JsonPrimitive(value.season),
-                JsonPrimitive(value.extra)
+                JsonPrimitive(value.extra),
+                JsonPrimitive(value.rawTitle),
             )
         )
         jsonEncoder.encodeJsonElement(jsonArray)
@@ -61,6 +63,7 @@ object AnimeItemSerializer : KSerializer<AnimeItem> {
             year = ZhTwConverterUtil.toSimple(jsonArray[3].jsonPrimitive.content),
             season = ZhTwConverterUtil.toSimple(jsonArray[4].jsonPrimitive.content),
             extra = ZhTwConverterUtil.toSimple(jsonArray[5].jsonPrimitive.content),
+            rawTitle = jsonArray[2].jsonPrimitive.content,
         )
     }
 }

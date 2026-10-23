@@ -2,6 +2,7 @@ package com.muedsa.tvbox.anime1
 
 import com.muedsa.tvbox.anime1.service.Anime1MeAnimeListCacheService
 import com.muedsa.tvbox.anime1.service.Anime1MeApiService
+import com.muedsa.tvbox.anime1.service.BgmRatingQueryService
 import com.muedsa.tvbox.anime1.service.MainScreenService
 import com.muedsa.tvbox.anime1.service.MediaCatalogService
 import com.muedsa.tvbox.anime1.service.MediaDetailService
@@ -46,10 +47,17 @@ class Anime1MePlugin(tvBoxContext: TvBoxContext) : IPlugin(tvBoxContext = tvBoxC
     private val anime1MeAnimeListCacheService by lazy {
         Anime1MeAnimeListCacheService(anime1MeApiService = anime1MeApiService)
     }
-
+    private val bgmRatingQueryService by lazy {
+        createJsonRetrofit(
+            baseUrl = "https://bgm.muedsa.com/",
+            service = BgmRatingQueryService::class.java,
+            okHttpClient = okHttpClient,
+        )
+    }
     private val mainScreenService by lazy {
         MainScreenService(
             anime1MeAnimeListCacheService = anime1MeAnimeListCacheService,
+            bgmRatingQueryService = bgmRatingQueryService,
         )
     }
     private val mediaDetailService by lazy {
@@ -61,11 +69,13 @@ class Anime1MePlugin(tvBoxContext: TvBoxContext) : IPlugin(tvBoxContext = tvBoxC
     private val mediaSearchService by lazy {
         MediaSearchService(
             anime1MeAnimeListCacheService = anime1MeAnimeListCacheService,
+            bgmRatingQueryService = bgmRatingQueryService,
         )
     }
     private val mediaCatalogService by lazy {
         MediaCatalogService(
             anime1MeAnimeListCacheService = anime1MeAnimeListCacheService,
+            bgmRatingQueryService = bgmRatingQueryService,
         )
     }
 

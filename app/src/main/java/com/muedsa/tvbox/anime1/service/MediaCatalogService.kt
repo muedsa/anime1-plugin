@@ -10,6 +10,7 @@ import com.muedsa.tvbox.api.service.IMediaCatalogService
 
 class MediaCatalogService(
     private val anime1MeAnimeListCacheService: Anime1MeAnimeListCacheService,
+    private val bgmRatingQueryService: BgmRatingQueryService,
 ) : IMediaCatalogService {
 
     override suspend fun getConfig(): MediaCatalogConfig {
@@ -35,13 +36,23 @@ class MediaCatalogService(
             offset = animeList.size
         }
         val prevKey = index - PAGE_SIZE
+        val subAnimeList = animeList.subList(index, offset)
+        val matchedResults = BgmRatingQueryService.loopBatchQuery(
+            animeItems = subAnimeList,
+            service = bgmRatingQueryService,
+        )
         return PagingResult(
-            list = animeList.mapIndexed { index, item ->
+            list = subAnimeList.mapIndexed { index, item ->
+                val id = item.cat.toString()
+                var subTitle = "${item.status} ${item.year} ${item.season}"
+                if (matchedResults[id]?.rating?.score != null) {
+                    subTitle = "$subTitle ★${matchedResults[id]?.rating?.score}"
+                }
                 MediaCard(
-                    id = item.cat.toString(),
+                    id = id,
                     title = item.title,
-                    subTitle = "${item.status} ${item.year} ${item.season}",
-                    detailUrl = item.cat.toString(),
+                    subTitle = subTitle,
+                    detailUrl = id,
                     backgroundColor = Anime1MeConst.getColor(index),
                 )
             },
