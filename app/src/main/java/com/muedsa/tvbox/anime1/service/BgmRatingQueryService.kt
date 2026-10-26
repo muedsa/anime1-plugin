@@ -6,11 +6,13 @@ import com.muedsa.tvbox.anime1.model.BgmRatingBatchQueryReq
 import com.muedsa.tvbox.anime1.model.BgmRatingBatchQueryResp
 import com.muedsa.tvbox.anime1.model.BgmRatingBatchQueryResult
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface BgmRatingQueryService {
 
     @POST("api/v1/ratings/batch")
+    @Headers("User-Agent: muedsa/anime1-plugin (https://github.com/muedsa/anime1-plugin)")
     suspend fun batchQuery(@Body req: BgmRatingBatchQueryReq): BgmRatingBatchQueryResp
 
     companion object {
