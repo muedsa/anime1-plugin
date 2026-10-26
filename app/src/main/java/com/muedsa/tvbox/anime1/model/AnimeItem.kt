@@ -63,7 +63,7 @@ object AnimeItemSerializer : KSerializer<AnimeItem> {
             year = ZhTwConverterUtil.toSimple(jsonArray[3].jsonPrimitive.content),
             season = ZhTwConverterUtil.toSimple(jsonArray[4].jsonPrimitive.content),
             extra = ZhTwConverterUtil.toSimple(jsonArray[5].jsonPrimitive.content),
-            rawTitle = jsonArray[2].jsonPrimitive.content,
+            rawTitle = jsonArray[1].jsonPrimitive.content,
         )
     }
 }
